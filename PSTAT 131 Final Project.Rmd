@@ -1,0 +1,432 @@
+---
+title: "PSTAT 131 Final Project"
+author: "Lucas Joseph"
+date: "2024-03-04"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+ 
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+library(tidymodels)
+library(ggplot2)
+library(corrplot)
+library(ggthemes)
+library(kableExtra)
+library(yardstick)
+library(spotifyr)
+library(jsonlite)
+library(DescTools)
+library(themis)
+library(discrim)
+options(scipen=999, digits = 8)
+
+```
+# Introduction
+The goal of this project is to predict the genre of a collection of songs pulled from my personal Spotify collection. With the extensive information collected by Spotify for each of the songs saved in its library, I figured I'd have plenty of data to explore my own taste in music and see if there were any interesting relationships between the songs I like. Originally, I intended to investigate whether or not it would be possible for me to predict whether or not I liked a song(measured by if that song was saved to one of my playlists) based off of the acoustic properties of the song. This proved somewhat difficult and posed a few concerns that made me reconsider the scope of my project. For one, because I listened to a large variety of songs from different genres, subgenres, and artists, it might be the case that there are certain traits that I might prefer from some artists or genres that I don't prefer in another. Even through creating the categorical variable to distinguish genre and related interaction variables, which within a linear model can account for how one categorical variable will affect how other variables affect the response, my models did not look especially promising. 
+
+I also ran into the issue that because of the way I had sourced some additional data from my top 20 artists(a process I will detail later). My method for generating roughly 70% of my model involved taking 50 songs from the catalog of each artist that I did not have saved to any of my playlists. Even though I didn't have them saved, there very well may have been a number of songs within the collection that I would have liked, but simply hadn't had the opportunity to listen to yet. It would be impossible for me to listen to each song within the collection in order to form an opinion on whether or not I like it and therefore would have it saved, leading me to realize that having a song be saved to my playlist was not the best metric for determining if I liked it or not.
+
+After this process of exploring my data and basic model building, I decided my data would be far better suited to train a machine learning model that could identify which of two genres certain songs belonged to, either hip-hop or rock.
+
+The main genres of music that I listen to are hip hop and alternative rock. Though there are subsections to each genre and a number of outliers from other genres in my Spotify library, I figured training to differentiate between one of these two genres would be a good goal to test my knowledge of machine learning techniques.
+
+## Data Wrangling
+Collecting the data for this project was an interesting challenge since I couldn't pull from an existing dataset from the internet or other sources if I wanted to investigate my own taste in music. Because all of my music was saved through the streaming service *Spotify*, I had to use the app's own tools to extract meaningful data. 
+
+Spotify is one of the largest music hosting and streaming services today allowing users to listen from its incredibly extensive music library for free. In addition to allowing users to listen to music, Spotify hosts its own API, or application software interface, that allows users and developers to pull information from Spotify's servers and connect their own apps and projects in with Spotify's services. This allows for users to receive information about certain songs, albums, artists, and even a user's own listening activity. Documentation for the API can be found below:
+
+  *https://developer.spotify.com/documentation/web-api*
+
+By using the package `spotifyr`, users are able to interface with Spotify's API directly through R. In order to collect my data, I utilized the package to write code to do the following:
+
+  1. Store my credentials to gain authorization to access the API
+  2. Create a dataframe of all tracks I had saved in either a playlist or songs I had given a 'like' to
+  3. Randomly generate a dataframe of 1000 songs from my top 20 most listened to artists(50 songs per artist) and then remove any songs I had saved for a total of roughly 820 songs
+  4. Request the acoustic info for each song and combine both dataframes with the attached acoustic information.
+
+*The documentation for `spotifyr` can be found here:*
+
+  *https://www.rdocumentation.org/packages/spotifyr/versions/2.1.1*
+
+I was able to perform most of the data collection through my R environment, however there were some instances where I had to use Spotify's online interface because of some authorization issues. I was able to save the resulting data locally as a JSON file and read them into my R environment.
+
+Because Spotify's API does not save genre as a feature of any given song, I had to result to manually labeling the 397 songs I had saved their appropriate genre within Excel. For the songs that I had sampled from my most listened to artists, I assigned each artist a genre and then attached the correct genre to each song based off of who the artist was.
+
+For the sake of simplicity, I've imported the resulting data frame from all of my collection as a CSV file. If you'd like to take a look at the script I used to perform the data collection, please take a look at the file `api-data-collection.R`
+
+### Codebook
+
+The final dataframe that I would be training the model contains 1142 observations for the 17 columns. 13 of the following variables come from using the `get_track_audio_features` function from the `spotifyr` package and are features of a given song that Spotify collects a number of features about the song's audio profile.
+
+**Identifying Features:**
+
+  - **track_id** - The unique code of characters used to identify a song on Spotify
+  
+  - **simplified_genre** - Genre of the track. Either 'hip hop', 'rock', or 'other'
+  
+  - **track_name** - Name of the track
+  
+  - **saved** - Either TRUE or FALSE. A track is considered saved(TRUE) if I have saved the song to a playlist or have it 'liked'     
+
+**Acoustic Features**(Descriptions pulled from [Spotify API documentation](https://developer.spotify.com/documentation/web-api/reference/get-audio-features)):
+
+  - **acousticness** - A confidence measure from 0.0 to 1.0 of whether the track is acoustic. 1.0 represents high confidence the track is acoustic.
+  
+  - **danceability**  - Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity. A value of 0.0 is least danceable and 1.0 is most danceable.
+  
+  - **duration_ms** - The duration of the track in milliseconds.
+  
+  - **energy** - Energy is a measure from 0.0 to 1.0 and represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy. For example, death metal has high energy, while a Bach prelude scores low on the scale. Perceptual features contributing to this attribute include dynamic range, perceived loudness, timbre, onset rate, and general entropy.
+  
+  - **instrumentalness** - Predicts whether a track contains no vocals. "Ooh" and "aah" sounds are treated as instrumental in this context. Rap or spoken word tracks are clearly "vocal". The closer the instrumentalness value is to 1.0, the greater likelihood the track contains no vocal content. Values above 0.5 are intended to represent instrumental tracks, but confidence is higher as the value approaches 1.0.
+  
+  - **key** - The key the track is in. Integers map to pitches using standard Pitch Class notation. E.g. 0 = C, 1 = C♯/D♭, 2 = D, and so on. If no key was detected, the value is -1.
+  
+  - **liveness** - Detects the presence of an audience in the recording. Higher liveness values represent an increased probability that the track was performed live. A value above 0.8 provides strong likelihood that the track is live.
+  
+  - **loudness** - The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track and are useful for comparing relative loudness of tracks. Loudness is the quality of a sound that is the primary psychological correlate of physical strength (amplitude). Values typically range between -60 and 0 db.
+  
+  - **mode** - Mode indicates the modality (major or minor) of a track, the type of scale from which its melodic content is derived. Major is represented by 1 and minor is 0.
+  
+  - **speechiness** - Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 1.0 the attribute value. Values above 0.66 describe tracks that are probably made entirely of spoken words. Values between 0.33 and 0.66 describe tracks that may contain both music and speech, either in sections or layered, including such cases as rap music. Values below 0.33 most likely represent music and other non-speech-like tracks.
+  
+  - **tempo** - The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.
+  
+  - **time_signature** - An estimated time signature. The time signature (meter) is a notational convention to specify how many beats are in each bar (or measure). The time signature ranges from 3 to 7 indicating time signatures of "3/4", to "7/4".
+  
+  - **valence** - A measure from 0.0 to 1.0 describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).
+
+# Exploratory Data Analysis
+
+After importing our CSV file into R, I converted the appropriate non-numeric variables into factors. 
+
+```{r Data Preparation}
+combined <- read.csv("./data/complete_dataset.csv")
+
+combined$saved <- as.factor(combined$saved)
+combined$key <- as.factor(combined$key)
+combined$mode <- as.factor(combined$mode)
+combined$time_signature <- as.factor(combined$time_signature)
+combined$simplified_genre <- as.factor(combined$simplified_genre)
+```
+
+My method of combining songs I had saved with a random sample from my top twenty artists made for an even distribution between songs that were either hip hop or rock. There were a handful of songs that I kept in an other category that I would remove from the dataset for training purposes. 
+
+*Because of the way that the Spotify API works, I was able to collect acoustic the audio features of every song and as a result had no missing data in my dataset.*
+
+```{r Genre Barplot, echo = F}
+ggplot(data=combined, aes(x=simplified_genre, fill = simplified_genre)) + geom_bar() + labs(x = 'Genre', y = 'Count', title="Distribution of Songs by Genre")
+
+combined <- combined %>% 
+  filter(simplified_genre != 'other') %>% 
+  droplevels('other')
+
+combined$simplified_genre <- as.factor(combined$simplified_genre)
+```
+
+By looking at some of the audio features of each song by separated by genre, we can get a better idea of how each genre differs sonically.
+
+```{r Danceability vs. Speechiness, echo = F}
+ggplot(data = combined, aes(x = danceability, y = speechiness, color = simplified_genre)) + geom_point() + labs(color = 'Genre of Song', title = 'Distribution of Danceability and Speechiness by Genre')
+```
+
+If we look at how the variables `danceability` and `speechiness` vary by the genre of each song, we can notice that rock songs score significantly lower on `speechiness` compared to hip hop. We also see hip hop slightly higher on the scale of `danceability`. I expected this relationship given rap music and hip hop are very lyrically dense. Similarly, I anticipated hip hop being higher on the `danceability` scale since as a dancer, I dance to mostly to hip hop due to the steady tempo and strength of the drums.
+
+We can also take a look at a correlation plot of our numeric variables in order to better understand some of the relationships between features:  
+ 
+```{r Corrplot, echo = F}
+M = cor(combined[-c(1, 2, 5, 7, 15, 16, 17)])
+corrplot(M, method= 'square', type = 'lower', title = 'Correlation Plot of Numeric Features')
+```
+
+We can see that energy is positively correlated with `loudness` and negatively correlated with `acousticness`. Given that energy is described as being associated with speed and `loudness` this is to be expected. Using the same definition, we could also say the negative relation between `acousticness` and `energy` would be expected if we imagine that acoustic versions of songs may not be as loud or high energy as songs that are played on louder instruments. This would also follow the negative relationship between `acousticness` and `loudness`.
+
+We can also see a positive correlation between `danceability`  and `valence`, which is rated higher the "happier" a song sounds. This I would expect, I generally find it easier to dance to more upbeat music. An interesting unexpected relationship is the negative correlation between `tempo` and `danceability`. I would have expected that songs that people could dance to would generally be faster.
+
+# Recipe Preparation
+
+After cleaning up our data and ensuring its values are stored as the correct type, it's time to split our data for training and testing. We'll use 80 percent of the data for training and the remaining 20 percent for testing. Because we're looking for a distribution of observations that reflects our entire dataset, we'll be stratifying the data along the `simplified_genre` to give us an even distribution of songs from each genre. 
+
+We'll also be setting up 10 folds for *K-fold cross validation*.  K-fold cross-validation involves training a model on k-1 different subsets of the training data and using the 1 remaining subset to validate the model. The model is trained so that each fold is used as a validation subset and the best model can be chosen. This also will help us avoid overfitting the model to the testing subset.
+
+```{r Data Split}
+df_split <- initial_split(combined, prop = 0.80,
+                                strata = simplified_genre)
+df_train <- training(df_split)
+df_test <- testing(df_split)
+df_folds <- vfold_cv(df_train, v = 10, strata = simplified_genre)
+```
+
+The recipe doesn't include identifying information used by Spotify, such as the track id and track name, and ensures the predictors, `simplified_genre`, `key`, `mode`, and `time_signature` are treated as categorical variables and creates corresponding dummy variables. We'll also be using `step_center` and `step_scale` to center and normalize our data respectively. 
+
+```{r Recipe}
+recipe <- recipe(simplified_genre ~ danceability + energy + key + loudness + mode + speechiness + acousticness + instrumentalness + liveness + valence + tempo + time_signature, data = df_train) %>% 
+  step_dummy(key, mode, time_signature) %>% # removed simplified_genre
+  step_center() %>% 
+  step_scale() 
+```
+
+# Model Building
+
+For this project, I'll be constructing 5 models to predict the genre of a song. I'll be utilizing logistic regression, k-nearest neighbors, elastic net logistic regression, linear discriminate analysis, and a support vector machine(SVM) model.
+
+The process of creating each model will follow roughly the same steps:
+
+1. Defining the model
+
+2. Defining the workflow
+
+3. If applicable, specify a tuning grid in order to select the best hyperparameters for a given model. This was done for the KNN, Elastic Net Logistic, and SVM models
+
+4. Perform k-fold cross validation and select the best model.
+
+5. Finalize the workflow to include the best model and fit the model on our training data.
+
+6. Evaluate model performance
+
+To evaluate each model's performance, we'll be taking a look at the area under the curve of the receiver operating characteristic, or `roc`. We can interpret the `roc` curve of any of our models as the relationship between the true positive rate, or the ratio of predictions that are correctly identified as positive for given observations, and the false positive rate, or rate of predictions that are incorrectly identified as positive. The terms **sensitivity** and **specificity** refer to each of these rates respectively. Ideally, we'd like our ROC AUC to be as close to 1.0 as possible.
+
+**In the following sections, I will include the code that builds each model, as well as the relevant plots and explanations for models that involve tuning.**
+
+### Logistic Regression 
+
+Here we don't require any special tuning and will fit the model normally:
+
+```{r GLM Model, warning=FALSE, error=FALSE, results="hide", message=FALSE}
+glm_model <- logistic_reg() %>% 
+  set_engine("glm") %>% 
+  set_mode("classification")
+
+glm_wkflow <- workflow() %>% 
+  add_model(glm_model) %>% 
+  add_recipe(recipe)
+
+glm_folds_fit <- fit_resamples(glm_wkflow, df_folds)
+
+best_glm <- show_best(glm_folds_fit, metric = 'roc_auc')
+
+final_glm_fit <- finalize_workflow(glm_wkflow, best_glm) %>% 
+  fit(df_train)
+```
+
+
+### K-Nearest Neighbors
+
+Our K-Nearest Neighbors model requires tuning on the hyperparameter `neighbors`. This hyperparameter specifies how many nearby observations with similar features will be used to select an appropriate genre for a given prediction. 
+
+```{r KNN Model, warning=FALSE, error=FALSE, results="hide", message=FALSE}
+knn_mod <- nearest_neighbor(neighbors = tune()) %>%
+  set_mode("classification") %>%
+  set_engine("kknn")
+
+knn_wkflow <- workflow() %>% 
+  add_model(knn_mod) %>% 
+  add_recipe(recipe)
+
+
+knn_grid <- grid_regular(neighbors(range = c(1, 10)), levels = 10)
+
+tune_res_knn <- tune_grid(
+  object = knn_wkflow, 
+  resamples = df_folds, 
+  grid = knn_grid,
+  control = control_grid(verbose = TRUE)
+)
+
+autoplot(tune_res_knn)
+```
+
+By using `autoplot` to examine our tuning, we see that our accuracy increases dramatically at 5 neighbors, continues to rise, and then levels out after 7, and that we reach a peak `roc_auc` at ten neighbors.
+
+We now fit the best KNN model:
+
+```{r KNN Results}
+best_knn <- show_best(tune_res_knn, metric = "roc_auc")[1,] 
+
+final_knn_fit <- finalize_workflow(knn_wkflow, best_knn) %>% 
+  fit(df_train)
+```
+
+### Elastic Net Logistic Model
+
+For our Elastic Net model, we'll be tuning the hyperparameters `penalty` and `mixture`. We'll be tuning `penalty`, which refers to the proportion of the lasso penalty, between the values of 0 and 1, and `mixture`, which refers to the amount of regularization to also be between 0 and 1.
+
+```{r ENLM Model, warning=FALSE, error=FALSE, results="hide", message=FALSE}
+enlm_mod <- logistic_reg(mixture=tune(), penalty=tune()) %>%
+  set_mode("classification") %>%
+  set_engine("glmnet")
+
+enlm_wkflow <- workflow() %>% 
+  add_model(enlm_mod) %>% 
+  add_recipe(recipe)
+
+enlm_grid <- grid_regular(penalty(range = c(0, 1), trans = identity_trans()), mixture(c(0,1)), levels = 10)
+
+tune_res_enlm <- tune_grid(
+  object = enlm_wkflow, 
+  resamples = df_folds, 
+  grid = enlm_grid,
+  control = control_grid(verbose = TRUE)
+)
+```
+
+```{r ENLM Results, warning=FALSE, error=FALSE, message=FALSE}
+autoplot(tune_res_enlm, metric = 'roc_auc')
+
+best_enlm <- show_best(tune_res_enlm, metric = "roc_auc")[1,]
+
+final_enlm_fit <- finalize_workflow(enlm_wkflow, best_enlm) %>% 
+  fit(df_train)
+```
+
+The Elastic Net Logistic model with a penalty of `r best_enlm$penalty` and mixture of `r best_enlm$mixture` performs the best on the training data with a mean area under the ROC curve of `r best_knn$mean`. If we examine the generated autoplot, we notice models with low proportions of lasso penalty tend to perform best, and that the `roc_auc` drops signficantly as the amount of regularization increases.
+
+### Linear Discriminate Analysis
+
+For our LDA model we don't require any special tuning either and will fit the model normally:
+
+```{r LDA, warning=FALSE, error=FALSE, message=FALSE}
+lda_model <- discrim_linear() %>% 
+  set_engine("MASS")
+
+lda_wflow <- workflow() %>% 
+  add_model(lda_model) %>% 
+  add_recipe(recipe)
+
+lda_folds_fit <- fit_resamples(lda_wflow, df_folds)
+
+
+best_lda <- show_best(lda_folds_fit, metric = 'roc_auc')
+
+final_lda_fit <- finalize_workflow(lda_wflow, best_lda) %>% 
+  fit(df_train)
+```
+
+### SVM
+
+Our SVM model requires the tuning of the `cost` hyperparameter, which represents the cost of making a prediction on the wrong side of the margin. For this SVM, we'll be using a polynomial kernel of degree 3. This ended up giving me the best `roc_auc` compared to linear, radial, and degree 2 polynomials.
+
+```{r SVM}
+svm_spec <- svm_poly(degree = 3, cost = tune()) %>%
+  set_mode("classification") %>%
+  set_engine("kernlab")
+
+svm_wkflow <- workflow() %>% 
+  add_recipe(recipe) %>% 
+  add_model(svm_spec)
+
+svm_grid <- grid_regular(cost(), levels = 10)
+
+svm_res <- tune_grid(svm_wkflow, 
+                            resamples = df_folds, grid = svm_grid)
+
+svm_res %>% autoplot()
+
+svm_best <- select_best(svm_res, metric = 'roc_auc')
+
+svm_final_fit <- finalize_workflow(svm_wkflow, svm_best) %>% 
+  fit(df_train)
+```
+We find that both the `roc_auc` and `accuracy` of our models decrease very rapidly then flatten out once the cost is set to .0078. This is in line with our best performing model having a cost hyperparameter of `r svm_best$cost`.
+
+# Best Model Results
+To find our best model, we'll compare the `roc_auc` for each of the model and select the highest value:
+
+```{r Find best model}
+#GLM
+glm_roc <- final_glm_fit %>% 
+  augment(new_data = df_train)  %>%
+  roc_auc(truth = simplified_genre, ".pred_hip hop")
+
+#KNN
+knn_roc <- final_knn_fit %>% 
+  augment(new_data = df_train)  %>%
+  roc_auc(truth = simplified_genre, ".pred_hip hop")
+
+#EN
+en_roc <- final_enlm_fit %>% 
+  augment(new_data = df_train)  %>%
+  roc_auc(truth = simplified_genre, ".pred_hip hop")
+
+#LDA
+lda_roc <- final_lda_fit %>% 
+  augment(new_data = df_train)  %>%
+  roc_auc(truth = simplified_genre, ".pred_hip hop")
+
+#SVM 
+svm_roc <- svm_final_fit %>% 
+  augment(new_data = df_train) %>% 
+  roc_auc(truth = simplified_genre, ".pred_hip hop")
+
+model_labels <-c('Logistic Regression', 'KNN', 'Elastic Net Logistic', 'Linear Discriminant Analysis', 'SVM')
+model_rocs <- bind_rows(glm_roc, knn_roc, en_roc, lda_roc, svm_roc) %>% 
+  dplyr::select(.estimate) %>% 
+  mutate(Model = model_labels) %>% 
+  dplyr::select(Model, .estimate) %>% 
+  arrange(desc(.estimate)) %>% 
+  rename(roc_auc = .estimate)
+
+model_rocs
+```
+
+Our table shows that our most successful model is our SVM model with an impressive `roc_auc` of `r model_rocs[[1, 'roc_auc']]` on the training set. Now let's fit our model to training set and evaluate its performance.
+
+### SVM Test Evaluation
+
+```{r}
+svm_test_stats <- svm_final_fit %>% 
+  augment(new_data = df_test) %>% 
+  roc_auc(truth = simplified_genre, ".pred_hip hop")
+
+svm_test_stats
+
+svm_test_acc <- svm_final_fit %>% 
+  augment(new_data = df_test) %>% 
+  accuracy(truth = simplified_genre, ".pred_class")
+
+svm_test_acc <- svm_test_acc$.estimate
+
+augment(svm_final_fit, new_data = df_test) %>% 
+   conf_mat(truth = simplified_genre, estimate = .pred_class) %>% 
+   autoplot(type = "heatmap")
+```
+
+We see that the `roc_auc` for the SVM model evaluated on the test set is `r svm_test_stats[[1, '.estimate']]` If we examine our confusion matrix, we can also see the relatively few amount of errors made in classifying the test set and that our accuracy is `r svm_test_acc`.
+
+Though our SVM model did have the highest training `roc_auc` out of all of our models, let's test our model with the second highest training `roc_auc`
+
+### KNN Test Evaluation 
+
+
+```{r}
+knn_test_stats <- final_knn_fit %>% 
+  augment(new_data = df_test) %>% 
+  roc_auc(truth = simplified_genre, ".pred_hip hop")
+
+knn_test_stats
+
+knn_test_acc <- final_knn_fit %>% 
+  augment(new_data = df_test) %>% 
+  accuracy(truth = simplified_genre, ".pred_class")
+
+knn_test_acc <- knn_test_acc$.estimate
+
+augment(final_knn_fit, new_data = df_test) %>% 
+   conf_mat(truth = simplified_genre, estimate = .pred_class) %>% 
+   autoplot(type = "heatmap")
+```
+
+We see that the `roc_auc` for the KNN model evaluated on the test set is `r knn_test_stats[[1, '.estimate']]`. We also have model accuracy of `r knn_test_acc` This model's `roc_auc` falls slightly under that of the SVM, meaning our SVM model outperformed the KNN on the testing data.
+
+# Conclusion
+
+For this project, I learned how to use an external API to create a dataset of songs and their characteristics and then built a number of machine learning models to predict if a song's genre was either hip hop or rock. Overall, I was very pleasantly surprised with the results of my models. The most successful model was a polynomial Support Vector Machine model of degree 3. We found that the SVM model performed very well with a testing `roc_aoc` of `r svm_test_stats[[1, '.estimate']]`, though our K-Nearest Neighbors model also performed rather well. Of the models I chose, I expected that SVM would perform well due to it being well equipped for binary classification. I was also excited to make use of the model because its underlying concept was intuitive to me as I was learning.
+
+If I were to expand on my work in this project in the future, I think it would be interesting to try to classify songs by even more specific subgenres beyond the binary classification I had set up for this project. By the time my project was complete, I noticed my metrics for success were very high which makes me think there may be some more interesting and challenging machine learning problems related to songs and their genres to solve. I also think it would be interesting to revisit my original plan of identifying songs that I personally like, but this would require me to rethink how I would go about collecting data to make accurate predictions.
+
+
