@@ -1,0 +1,766 @@
+{
+  "items": [
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/17Zu03OgBVxgLxWmRUyNOJ"
+      },
+      "followers": {
+        "href": null,
+        "total": 239865
+      },
+      "genres": [
+        "abstract beats",
+        "alternative hip hop",
+        "indie soul",
+        "instrumental hip hop",
+        "wonky"
+      ],
+      "href": "https://api.spotify.com/v1/artists/17Zu03OgBVxgLxWmRUyNOJ",
+      "id": "17Zu03OgBVxgLxWmRUyNOJ",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb8e0147d29ac3c4f161924696",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051748e0147d29ac3c4f161924696",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1788e0147d29ac3c4f161924696",
+          "width": 160
+        }
+      ],
+      "name": "Knxwledge",
+      "popularity": 56,
+      "type": "artist",
+      "uri": "spotify:artist:17Zu03OgBVxgLxWmRUyNOJ"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/2RhgnQNC74QoBlaUvT4MEe"
+      },
+      "followers": {
+        "href": null,
+        "total": 616519
+      },
+      "genres": [
+        "garage rock revival",
+        "indie garage rock",
+        "indie surf"
+      ],
+      "href": "https://api.spotify.com/v1/artists/2RhgnQNC74QoBlaUvT4MEe",
+      "id": "2RhgnQNC74QoBlaUvT4MEe",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb793e2468e3290db652ca4dcf",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174793e2468e3290db652ca4dcf",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178793e2468e3290db652ca4dcf",
+          "width": 160
+        }
+      ],
+      "name": "The Growlers",
+      "popularity": 58,
+      "type": "artist",
+      "uri": "spotify:artist:2RhgnQNC74QoBlaUvT4MEe"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/1ZwdS5xdxEREPySFridCfh"
+      },
+      "followers": {
+        "href": null,
+        "total": 17168317
+      },
+      "genres": [
+        "g funk",
+        "gangster rap",
+        "hip hop",
+        "rap",
+        "west coast rap"
+      ],
+      "href": "https://api.spotify.com/v1/artists/1ZwdS5xdxEREPySFridCfh",
+      "id": "1ZwdS5xdxEREPySFridCfh",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb7f5cc432c9c109248ebec1ac",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051747f5cc432c9c109248ebec1ac",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1787f5cc432c9c109248ebec1ac",
+          "width": 160
+        }
+      ],
+      "name": "2Pac",
+      "popularity": 78,
+      "type": "artist",
+      "uri": "spotify:artist:1ZwdS5xdxEREPySFridCfh"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/5K4W6rqBFWDnAN6FQUkS6x"
+      },
+      "followers": {
+        "href": null,
+        "total": 24123962
+      },
+      "genres": [
+        "chicago rap",
+        "hip hop",
+        "rap"
+      ],
+      "href": "https://api.spotify.com/v1/artists/5K4W6rqBFWDnAN6FQUkS6x",
+      "id": "5K4W6rqBFWDnAN6FQUkS6x",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb6e835a500e791bf9c27a422a",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051746e835a500e791bf9c27a422a",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1786e835a500e791bf9c27a422a",
+          "width": 160
+        }
+      ],
+      "name": "Kanye West",
+      "popularity": 95,
+      "type": "artist",
+      "uri": "spotify:artist:5K4W6rqBFWDnAN6FQUkS6x"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/3nFkdlSjzX9mRTtwJOzDYB"
+      },
+      "followers": {
+        "href": null,
+        "total": 8816411
+      },
+      "genres": [
+        "east coast hip hop",
+        "gangster rap",
+        "hip hop",
+        "pop rap",
+        "rap"
+      ],
+      "href": "https://api.spotify.com/v1/artists/3nFkdlSjzX9mRTtwJOzDYB",
+      "id": "3nFkdlSjzX9mRTtwJOzDYB",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5ebc75afcd5a9027f60eaebb5e4",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174c75afcd5a9027f60eaebb5e4",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178c75afcd5a9027f60eaebb5e4",
+          "width": 160
+        }
+      ],
+      "name": "JAY-Z",
+      "popularity": 83,
+      "type": "artist",
+      "uri": "spotify:artist:3nFkdlSjzX9mRTtwJOzDYB"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/3Mcii5XWf6E0lrY3Uky4cA"
+      },
+      "followers": {
+        "href": null,
+        "total": 8101319
+      },
+      "genres": [
+        "conscious hip hop",
+        "g funk",
+        "gangster rap",
+        "hip hop",
+        "rap",
+        "west coast rap"
+      ],
+      "href": "https://api.spotify.com/v1/artists/3Mcii5XWf6E0lrY3Uky4cA",
+      "id": "3Mcii5XWf6E0lrY3Uky4cA",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb650e79afafd00492e33d7b8c",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174650e79afafd00492e33d7b8c",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178650e79afafd00492e33d7b8c",
+          "width": 160
+        }
+      ],
+      "name": "Ice Cube",
+      "popularity": 73,
+      "type": "artist",
+      "uri": "spotify:artist:3Mcii5XWf6E0lrY3Uky4cA"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/0epOFNiUfyON9EYx7Tpr6V"
+      },
+      "followers": {
+        "href": null,
+        "total": 5455597
+      },
+      "genres": [
+        "alternative rock",
+        "garage rock",
+        "modern rock",
+        "permanent wave",
+        "rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/0epOFNiUfyON9EYx7Tpr6V",
+      "id": "0epOFNiUfyON9EYx7Tpr6V",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5ebc3b137793230f4043feb0089",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174c3b137793230f4043feb0089",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178c3b137793230f4043feb0089",
+          "width": 160
+        }
+      ],
+      "name": "The Strokes",
+      "popularity": 75,
+      "type": "artist",
+      "uri": "spotify:artist:0epOFNiUfyON9EYx7Tpr6V"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/5Tj6sv1bYiB4PqvvXcTSr6"
+      },
+      "followers": {
+        "href": null,
+        "total": 105029
+      },
+      "genres": [
+        "j-indie",
+        "japanese garage rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/5Tj6sv1bYiB4PqvvXcTSr6",
+      "id": "5Tj6sv1bYiB4PqvvXcTSr6",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eba1ab78242c288873882867d7",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174a1ab78242c288873882867d7",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178a1ab78242c288873882867d7",
+          "width": 160
+        }
+      ],
+      "name": "No Buses",
+      "popularity": 40,
+      "type": "artist",
+      "uri": "spotify:artist:5Tj6sv1bYiB4PqvvXcTSr6"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/1Li0eIWeMeWcOOWpImcG9H"
+      },
+      "followers": {
+        "href": null,
+        "total": 243892
+      },
+      "genres": [
+        "garage rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/1Li0eIWeMeWcOOWpImcG9H",
+      "id": "1Li0eIWeMeWcOOWpImcG9H",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb785a6ede0ca23d01803b74f3",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174785a6ede0ca23d01803b74f3",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178785a6ede0ca23d01803b74f3",
+          "width": 160
+        }
+      ],
+      "name": "Albert Hammond Jr",
+      "popularity": 45,
+      "type": "artist",
+      "uri": "spotify:artist:1Li0eIWeMeWcOOWpImcG9H"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/2Z7UcsdweVlRbAk5wH5fsf"
+      },
+      "followers": {
+        "href": null,
+        "total": 1096585
+      },
+      "genres": [
+        "baroque pop",
+        "modern rock",
+        "sheffield indie"
+      ],
+      "href": "https://api.spotify.com/v1/artists/2Z7UcsdweVlRbAk5wH5fsf",
+      "id": "2Z7UcsdweVlRbAk5wH5fsf",
+      "images": [
+        {
+          "height": 1000,
+          "url": "https://i.scdn.co/image/1e721c9502da1663fe9dd0b9f8a90519546f0a9f",
+          "width": 1000
+        },
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/c3d3f098f92fbacb7a16ab5ca1d801228b26e1b2",
+          "width": 640
+        },
+        {
+          "height": 200,
+          "url": "https://i.scdn.co/image/ef0c42ed770ea0b67e073b2796c5e6eb2dd937cc",
+          "width": 200
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/df50b63ee9d08f5aa7a93cec0f26fcc1846ca20f",
+          "width": 64
+        }
+      ],
+      "name": "The Last Shadow Puppets",
+      "popularity": 59,
+      "type": "artist",
+      "uri": "spotify:artist:2Z7UcsdweVlRbAk5wH5fsf"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/07OePkse2fcvU9wlVftNMl"
+      },
+      "followers": {
+        "href": null,
+        "total": 213595
+      },
+      "genres": [
+        "k-indie",
+        "korean city pop",
+        "korean indie rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/07OePkse2fcvU9wlVftNMl",
+      "id": "07OePkse2fcvU9wlVftNMl",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eba869878b95fd94d6e6a5d5ac",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174a869878b95fd94d6e6a5d5ac",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178a869878b95fd94d6e6a5d5ac",
+          "width": 160
+        }
+      ],
+      "name": "SE SO NEON",
+      "popularity": 46,
+      "type": "artist",
+      "uri": "spotify:artist:07OePkse2fcvU9wlVftNMl"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/4nUBBtLtzqZGpdiynTJbYJ"
+      },
+      "followers": {
+        "href": null,
+        "total": 253224
+      },
+      "genres": [
+        "modern alternative rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/4nUBBtLtzqZGpdiynTJbYJ",
+      "id": "4nUBBtLtzqZGpdiynTJbYJ",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb7f164ed00a6488181fb63fa3",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051747f164ed00a6488181fb63fa3",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1787f164ed00a6488181fb63fa3",
+          "width": 160
+        }
+      ],
+      "name": "The Voidz",
+      "popularity": 52,
+      "type": "artist",
+      "uri": "spotify:artist:4nUBBtLtzqZGpdiynTJbYJ"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/7Ln80lUS6He07XvHI8qqHH"
+      },
+      "followers": {
+        "href": null,
+        "total": 23672412
+      },
+      "genres": [
+        "garage rock",
+        "modern rock",
+        "permanent wave",
+        "rock",
+        "sheffield indie"
+      ],
+      "href": "https://api.spotify.com/v1/artists/7Ln80lUS6He07XvHI8qqHH",
+      "id": "7Ln80lUS6He07XvHI8qqHH",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb7da39dea0a72f581535fb11f",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051747da39dea0a72f581535fb11f",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1787da39dea0a72f581535fb11f",
+          "width": 160
+        }
+      ],
+      "name": "Arctic Monkeys",
+      "popularity": 86,
+      "type": "artist",
+      "uri": "spotify:artist:7Ln80lUS6He07XvHI8qqHH"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/5Jdml91eTy38xvED2R5j0a"
+      },
+      "followers": {
+        "href": null,
+        "total": 1669
+      },
+      "genres": [],
+      "href": "https://api.spotify.com/v1/artists/5Jdml91eTy38xvED2R5j0a",
+      "id": "5Jdml91eTy38xvED2R5j0a",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb1459f16ead2b9610b1b4115e",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051741459f16ead2b9610b1b4115e",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1781459f16ead2b9610b1b4115e",
+          "width": 160
+        }
+      ],
+      "name": "The Audiots",
+      "popularity": 8,
+      "type": "artist",
+      "uri": "spotify:artist:5Jdml91eTy38xvED2R5j0a"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/1rAv1GhTQ2rmG94p9lU3rB"
+      },
+      "followers": {
+        "href": null,
+        "total": 533489
+      },
+      "genres": [
+        "indie rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/1rAv1GhTQ2rmG94p9lU3rB",
+      "id": "1rAv1GhTQ2rmG94p9lU3rB",
+      "images": [
+        {
+          "height": 540,
+          "url": "https://i.scdn.co/image/e7a1396741154b787911a8c6c9ba21a6f5b55a5f",
+          "width": 540
+        },
+        {
+          "height": 200,
+          "url": "https://i.scdn.co/image/2af33bb80aa4ec4790cfdef9464fbffd9495dd61",
+          "width": 200
+        },
+        {
+          "height": 64,
+          "url": "https://i.scdn.co/image/24effa2ec2302a26f9891b3190dea17491d368fa",
+          "width": 64
+        }
+      ],
+      "name": "Julian Casablancas",
+      "popularity": 60,
+      "type": "artist",
+      "uri": "spotify:artist:1rAv1GhTQ2rmG94p9lU3rB"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/3AA28KZvwAUcZuOKwyblJQ"
+      },
+      "followers": {
+        "href": null,
+        "total": 11250242
+      },
+      "genres": [
+        "alternative hip hop",
+        "modern rock",
+        "rock"
+      ],
+      "href": "https://api.spotify.com/v1/artists/3AA28KZvwAUcZuOKwyblJQ",
+      "id": "3AA28KZvwAUcZuOKwyblJQ",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb2c61d9506d5af5fb502b343f",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051742c61d9506d5af5fb502b343f",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1782c61d9506d5af5fb502b343f",
+          "width": 160
+        }
+      ],
+      "name": "Gorillaz",
+      "popularity": 78,
+      "type": "artist",
+      "uri": "spotify:artist:3AA28KZvwAUcZuOKwyblJQ"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/34EP7KEpOjXcM2TCat1ISk"
+      },
+      "followers": {
+        "href": null,
+        "total": 3010691
+      },
+      "genres": [
+        "east coast hip hop",
+        "gangster rap",
+        "hardcore hip hop",
+        "hip hop",
+        "rap"
+      ],
+      "href": "https://api.spotify.com/v1/artists/34EP7KEpOjXcM2TCat1ISk",
+      "id": "34EP7KEpOjXcM2TCat1ISk",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5ebe60866298962b71792b2bf1a",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174e60866298962b71792b2bf1a",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178e60866298962b71792b2bf1a",
+          "width": 160
+        }
+      ],
+      "name": "Wu-Tang Clan",
+      "popularity": 66,
+      "type": "artist",
+      "uri": "spotify:artist:34EP7KEpOjXcM2TCat1ISk"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/2pAWfrd7WFF3XhVt9GooDL"
+      },
+      "followers": {
+        "href": null,
+        "total": 2726706
+      },
+      "genres": [
+        "alternative hip hop",
+        "east coast hip hop",
+        "hip hop",
+        "instrumental hip hop",
+        "rap"
+      ],
+      "href": "https://api.spotify.com/v1/artists/2pAWfrd7WFF3XhVt9GooDL",
+      "id": "2pAWfrd7WFF3XhVt9GooDL",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb1ca139a174e216880498dc16",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051741ca139a174e216880498dc16",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1781ca139a174e216880498dc16",
+          "width": 160
+        }
+      ],
+      "name": "MF DOOM",
+      "popularity": 75,
+      "type": "artist",
+      "uri": "spotify:artist:2pAWfrd7WFF3XhVt9GooDL"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/1W9qOBYRTfP7HcizWN43G1"
+      },
+      "followers": {
+        "href": null,
+        "total": 681033
+      },
+      "genres": [
+        "bronx hip hop",
+        "east coast hip hop",
+        "golden age hip hop",
+        "old school hip hop"
+      ],
+      "href": "https://api.spotify.com/v1/artists/1W9qOBYRTfP7HcizWN43G1",
+      "id": "1W9qOBYRTfP7HcizWN43G1",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb7f458b9a8992b5472edfe0e7",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab676161000051747f458b9a8992b5472edfe0e7",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f1787f458b9a8992b5472edfe0e7",
+          "width": 160
+        }
+      ],
+      "name": "Slick Rick",
+      "popularity": 51,
+      "type": "artist",
+      "uri": "spotify:artist:1W9qOBYRTfP7HcizWN43G1"
+    },
+    {
+      "external_urls": {
+        "spotify": "https://open.spotify.com/artist/20qISvAhX20dpIbOOzGK3q"
+      },
+      "followers": {
+        "href": null,
+        "total": 3595302
+      },
+      "genres": [
+        "conscious hip hop",
+        "east coast hip hop",
+        "gangster rap",
+        "hardcore hip hop",
+        "hip hop",
+        "queens hip hop",
+        "rap"
+      ],
+      "href": "https://api.spotify.com/v1/artists/20qISvAhX20dpIbOOzGK3q",
+      "id": "20qISvAhX20dpIbOOzGK3q",
+      "images": [
+        {
+          "height": 640,
+          "url": "https://i.scdn.co/image/ab6761610000e5eb153198caeef9e3bda92f9285",
+          "width": 640
+        },
+        {
+          "height": 320,
+          "url": "https://i.scdn.co/image/ab67616100005174153198caeef9e3bda92f9285",
+          "width": 320
+        },
+        {
+          "height": 160,
+          "url": "https://i.scdn.co/image/ab6761610000f178153198caeef9e3bda92f9285",
+          "width": 160
+        }
+      ],
+      "name": "Nas",
+      "popularity": 72,
+      "type": "artist",
+      "uri": "spotify:artist:20qISvAhX20dpIbOOzGK3q"
+    }
+  ],
+  "total": 83,
+  "limit": 20,
+  "offset": 0,
+  "href": "https://api.spotify.com/v1/me/top/artists?offset=0&limit=20&time_range=long_term&locale=en-US%2Cen%3Bq%3D0.9%2Cko%3Bq%3D0.8",
+  "next": "https://api.spotify.com/v1/me/top/artists?offset=20&limit=20&time_range=long_term&locale=en-US%2Cen%3Bq%3D0.9%2Cko%3Bq%3D0.8",
+  "previous": null
+}
