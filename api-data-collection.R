@@ -12,9 +12,9 @@ authorization = get_spotify_authorization_code(scope = c('playlist-read-private'
 
 # Extracts songs saved in Spotify's "Liked Songs". JSON files extracted from Spotify Web API online environment.
 
-saved_1 <- fromJSON("C:/Users/legop/Desktop/131/data/saved_tracks_1-50.txt", simplifyDataFrame = TRUE, flatten = TRUE)
-saved_2 <- fromJSON("C:/Users/legop/Desktop/131/data/saved_tracks_51-100.json", simplifyDataFrame = TRUE, flatten = TRUE)
-saved_3 <- fromJSON("C:/Users/legop/Desktop/131/data/saved_tracks_101-105.txt", simplifyDataFrame = TRUE, flatten = TRUE)
+saved_1 <- fromJSON("./data/saved_tracks_1-50.txt", simplifyDataFrame = TRUE, flatten = TRUE)
+saved_2 <- fromJSON("./data/saved_tracks_51-100.json", simplifyDataFrame = TRUE, flatten = TRUE)
+saved_3 <- fromJSON("./data/saved_tracks_101-105.txt", simplifyDataFrame = TRUE, flatten = TRUE)
 
 saved_tracks <- saved_1$items %>% 
   bind_rows(saved_2$items) %>% 
@@ -56,7 +56,7 @@ unique_artist_albums<- lapply(unique_artists$id, FUN = get_artist_albums) %>%
 # Generate Non-Saved Track Data Frame
 # Take top 20 artists
 
-top_artists <- fromJSON("C:/Users/legop/Desktop/131/data/top_20_artists_long_term.txt", simplifyDataFrame = TRUE, flatten = TRUE)$items
+top_artists <- fromJSON("./data/top_20_artists_long_term.txt", simplifyDataFrame = TRUE, flatten = TRUE)$items
 
 # Create discography(as non-feature)
 
